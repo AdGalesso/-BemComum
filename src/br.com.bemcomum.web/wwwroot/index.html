@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br" ng-app="bemComum">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>#PorUmBemComum</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="../css/site.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href="../lib/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Smooth Scrolling -->
+    <link href="../lib/startbootstrap-scrolling-nav-1.0.3/css/scrolling-nav.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <base href="/" />
+</head>
+<body ng-controller="globalController">
+    <div class="container-fluid">
+        <header>
+            <div class="row transparent">
+                <div class="col-lg-6">
+                    <h1 class="logo"><a href="/">#PorUmBemComum</a></h1>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="navbar navbar-default">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a class="page-scroll" href="#about">Quem Somos</a></li>
+                                <li><a class="page-scroll" href="#help">Quero Ajudar</a></li>
+                                <li><a class="page-scroll" href="#institutions">Instituições</a></li>
+                                <li class="btn"><button type="button" class="btn btn-login">Login</button></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="content">
+                        <h2>Qual é o seu bem em comum?</h2>
+                        <p>Assista ao vídeo <a href="#" class="video"></a></p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="main" id="main">
+            <div ng-view></div>
+        </div>
+        <footer>
+            <div class="row">
+                <div class="col-lg-5">
+                    <p>Copyright © 2015, POR UM BEM COMUM. TODOS OS DIREITOS RESERVADOS</p>
+                </div>
+                <div class="col-lg-3">
+                    <p>
+                        <a href="/contact">Fale conosco</a>
+                        <span>|</span>
+                        <a href="/faq">FAQ</a>
+                    </p>
+                </div>
+                <div class="col-lg-4 social">
+                    <a href="" class="facebook">Facebook</a>
+                    <a href="" class="google">Google +</a>
+                    <a href="" class="twitter">Twitter</a>
+                    <a href="" class="instagram">Instagram</a>
+                    <a href="" class="pinterest">Pinterest</a>
+                    <a href="" class="blog">Blog</a>
+                    <a href="" class="linkedin">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Angular from CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="//code.angularjs.org/1.4.7/angular-route.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="../lib/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap Scroll -->
+    <script src="../lib/startbootstrap-scrolling-nav-1.0.3/js/jquery.easing.min.js"></script>
+    <script src="../lib/startbootstrap-scrolling-nav-1.0.3/js/scrolling-nav.js"></script>
+
+    <!-- Shared -->
+    <script src="../js/shared/_global.js"></script>
+
+    <!-- Home -->
+    <script src="../js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+﻿@font-face {
+    font-family: 'Gill Sans MT'; 
+    src: url('../fonts/Gill Sans MT.ttf');
+}
+
+@font-face {
+    font-family: 'Helv67'; 
+    src: url('../fonts/helr67w.ttf'); 
+}
+
+* {
+    font-family: 'Gill Sans MT' !important;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+
+body {
+    margin:0;
+    padding:0;
+    overflow-x:hidden;
+    color:#fff;
+}
+
+header {
+    background-size: cover;
+}
+
+@media screen and (max-width: 768px) {
+    header
+    {
+        background:url('../images/m_bg_home.jpg') center center no-repeat;
+        background-size: cover;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    header
+    {
+        background:url('../images/bg_home.jpg') center center no-repeat;
+        background-size: cover;
+    }
+}
+
+input {
+    font-weight:normal;
+}
+
+a:link,
+a:hover,
+a:visited,
+a:active
+ {
+    color: #ed5824;
+}
+
+.row.transparent {
+    background-image:url('../images/bg_transparent.png');
+}
+
+h1 {
+    background:url('../images/pubc_logo.png') no-repeat;
+    margin: 7px 0 9px 26px;
+}
+
+    h1 a {
+        display:block;
+        text-indent: -9999px;  
+        width: 239px;
+        height: 65px;
+    }
+
+h2 {
+    font-size: 45px;
+}
+
+h3 {
+    color:#000;
+    text-align:center;
+    font-size: 17pt;
+    font-weight: bold;
+}
+
+hr{
+    border: none;
+    height: 1px;
+    color: #dadada;
+    background-color: #dadada; 
+    margin: 0;
+}
+
+p.message {
+    color: #656865;
+    margin: 65px 0;
+    text-align:center;
+    font-weight:normal;
+}
+
+.register-you {
+    text-align:center;
+    margin:40px;
+    font-size:20px;
+}
+
+.navbar {
+    margin-bottom: 0;
+    padding: 13px 0 !important;
+    text-align:center;
+}
+
+.nav>li {
+    background:url('../images/menu_dtl.png') center 37px no-repeat;
+    margin-right: 11px;
+    height: 48px;
+}
+
+    .nav>li>a {
+        color:#fff;
+        text-align: center;
+    }
+
+    .nav>li.btn {
+        background:none;
+    }
+
+.navbar-default,
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    background:none;
+    border:none;
+    width:100%;
+}
+
+@media screen and (min-width: 1240px) {
+    .navbar-collapse { margin-left:100px; }
+}
+
+    .navbar-default .navbar-toggle {
+        border-color: #EE5824;
+        margin: 0 auto;
+        float: none;
+    }
+
+            .navbar-default .navbar-toggle .icon-bar{
+                background-color: #EE5824;
+            }
+
+.btn-login,
+.btn-login:active,
+.btn-login:hover,
+.btn-login:visited{
+    background-color: #D7400C;
+    border-color: #B52F01;
+    color:#fff;
+    font-family: 'Gill Sans MT' !important;
+    text-transform:uppercase;
+}
+
+.content {
+    margin: 380px 0 100px;
+    text-align:center;
+}
+
+    .content p {
+        font-size:18px;
+        display: inline-block;
+    }
+
+    .content .video {
+        background: url('../images/arrow_right.png') no-repeat;
+        display:block;
+        height: 29px;
+        width:30px;
+        float: right;
+        position: relative;
+        left: 10px;
+        top: -2px;
+
+    }
+
+.main {
+    background-color: #f2f3f2;
+}
+
+    .main .register{
+        background-color: #f8f8f8;
+        padding-bottom: 50px;
+    }
+
+    .main .separator {
+        background-color:#ee5723;
+        display:block;
+        width:100%;
+        height: 14px;
+    }
+
+.down-arrow {
+    background: url('../images/arrow_down.png') no-repeat;
+    display:block;
+    height:46px;
+    width:46px;
+    margin:0 auto;
+}
+
+.description {
+    color: #626562;
+    font-size: 15px;
+    margin: 40px 0;
+}
+
+    .description .water-mark {
+        background: url('../images/bg_water_mark.png') no-repeat;
+        display: block;
+        height: 263px;
+        width: 268px;
+        margin: 20px auto;
+    }
+
+form {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+    form label {
+        font-weight:normal;
+        color: #626562;
+    }
+
+    form .btn-default,
+    form .btn-default:active,
+    form .btn-default:hover,
+    form .btn-default:visited {
+        float:right;
+        background-color: #fc6525;
+        border-color: #fc6525;
+        color:#fff;
+        font-family: 'Gill Sans MT' !important;
+        text-transform:uppercase;
+    }
+
+    form .btn-default.horizontal{
+        margin-top:24px;
+    }
+
+footer {
+    background-color: #ED5824;
+    font-size: 9pt;
+    color: #a82f05;
+    text-align: center;
+}
+
+    footer p:first-child{
+        margin-top: 36px;
+    }
+
+    footer a:link,
+    footer a:hover,
+    footer a:visited {
+        color: #fff;
+    }
+
+    footer .social a {
+        background: url('../images/bg_social.gif');
+        display:block;
+        text-indent: -9999px;
+        height: 52px;
+        width: 52px;
+        float:left;
+        margin: 20px 0 14px 5px;
+    }
+
+        footer .social .facebook {
+            background-position: 0 0;
+        }
+
+        footer .social .google {
+            background-position: 365px 0;
+        }
+
+        footer .social .twitter {
+            background-position: 308px 0;
+        }
+
+        footer .social .instagram {
+            background-position: 248px 0;
+        }
+
+        footer .social .pinterest {
+            background-position: 186px 0;
+        }
+
+        footer .social .blog {
+            background-position: 122px 0;
+        }
+
+        footer .social .linkedin {
+            background-position: 60px 0;
+        }
