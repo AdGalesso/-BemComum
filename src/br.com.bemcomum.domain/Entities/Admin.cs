@@ -9,5 +9,11 @@ namespace br.com.bemcomum.domain.Entities
     public class Admin : User
     {
         public DateTime LastAccess { get; set; }
+
+        public override void Login()
+        {
+            LastAccess = DateTime.Now;
+            base.GetPhoto();
+        }
     }
 }

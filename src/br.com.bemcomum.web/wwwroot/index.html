@@ -10,10 +10,12 @@
 
     <title>#PorUmBemComum</title>
 
+    <!-- build:css css/bemcomum.min.css -->
     <!-- Bootstrap Core CSS -->
     <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom CSS -->
+    <link href="../css/animate.css" rel="stylesheet" type="text/css">
     <link href="../css/site.css" rel="stylesheet" type="text/css">
 
     <!-- Custom Fonts -->
@@ -21,6 +23,8 @@
 
     <!-- Smooth Scrolling -->
     <link href="../lib/startbootstrap-scrolling-nav-1.0.3/css/scrolling-nav.css" rel="stylesheet" type="text/css">
+    <!-- /build -->
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,7 +35,7 @@
 
     <base href="/" />
 </head>
-<body ng-controller="globalController">
+<body ng-controller="GlobalController">
     <div class="container-fluid">
         <header>
             <div class="row transparent">
@@ -96,7 +100,12 @@
     <!-- Angular from CDN -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <script src="//code.angularjs.org/1.4.7/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-messages.js"></script>
 
+    <!-- build:js dist/js/with_libs.js -->
+    <!-- /build -->
+
+    <!-- build:js dist/js/bemcomum.min.js -->
     <!-- jQuery -->
     <script src="../lib/jquery/dist/jquery.min.js"></script>
 
@@ -107,10 +116,18 @@
     <script src="../lib/startbootstrap-scrolling-nav-1.0.3/js/jquery.easing.min.js"></script>
     <script src="../lib/startbootstrap-scrolling-nav-1.0.3/js/scrolling-nav.js"></script>
 
+    <!-- Noty -->
+    <script src="../lib/node_modules/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+
     <!-- Shared -->
-    <script src="../js/shared/_global.js"></script>
+    <script src="../app/shared/_utils.js"></script>
+    <script src="../app/shared/_global.js"></script>
 
     <!-- Home -->
-    <script src="../js/home.js"></script>
+    <script src="../app/address/addressService.js"></script>
+    <script src="../app/user/userService.js"></script>
+    <script src="../app/home/home.js"></script>
+    <!-- /build -->
+
 </body>
 </html>

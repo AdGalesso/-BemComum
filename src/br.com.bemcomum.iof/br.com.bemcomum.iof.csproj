@@ -35,22 +35,44 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
+    <Compile Include="Map\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Map\" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\br.com.bemcomum.application.contracts\br.com.bemcomum.application.contracts.csproj">
+      <Project>{18af24ca-4377-4ade-bfd8-df949c3b2858}</Project>
+      <Name>br.com.bemcomum.application.contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\br.com.bemcomum.application\br.com.bemcomum.application.csproj">
+      <Project>{06469802-aa5d-4b7c-9b03-65633d630ec5}</Project>
+      <Name>br.com.bemcomum.application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\br.com.bemcomum.domain.service.contracts\br.com.bemcomum.domain.service.contracts.csproj">
+      <Project>{0f26eed7-be2a-4fef-b15a-d32e0b1dd8dc}</Project>
+      <Name>br.com.bemcomum.domain.service.contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\br.com.bemcomum.domain.service\br.com.bemcomum.domain.service.csproj">
+      <Project>{ae567704-600b-4d51-bef6-1f1b6c3b66ea}</Project>
+      <Name>br.com.bemcomum.domain.service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\br.com.bemcomum.domain\br.com.bemcomum.domain.csproj">
       <Project>{fa841657-febe-49fd-91e9-0bc201ba172b}</Project>
       <Name>br.com.bemcomum.domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\br.com.bemcomum.infra.data.contracts\br.com.bemcomum.infra.data.contracts.csproj">
+      <Project>{b386f611-b700-4794-81cf-bef7f6b1fcee}</Project>
+      <Name>br.com.bemcomum.infra.data.contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\br.com.bemcomum.infra.data\br.com.bemcomum.infra.data.csproj">
+      <Project>{93ee5fdc-3a58-4d06-9fc9-5c4583437ca9}</Project>
+      <Name>br.com.bemcomum.infra.data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

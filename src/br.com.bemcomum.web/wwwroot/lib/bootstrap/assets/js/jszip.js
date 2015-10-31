@@ -25,14 +25,7 @@ Usage:
  * @param {Object=} options the options for creating this objects (optional).
  */
 var JSZip = function(data, options) {
-   // object containing the files :
-   // {
-   //   "folder/" : {...},
-   //   "folder/data.txt" : {...}
-   // }
    this.files = {};
-
-   // Where we are in the hierarchy
    this.root = "";
 
    if (data) {
@@ -48,8 +41,6 @@ JSZip.signature = {
    ZIP64_CENTRAL_DIRECTORY_END : "\x50\x4b\x06\x06",
    DATA_DESCRIPTOR : "\x50\x4b\x07\x08"
 };
-
-// Default properties for a new file
 JSZip.defaults = {
    base64: false,
    binary: false,
@@ -74,10 +65,7 @@ JSZip.prototype = (function () {
 
          if (JSZip.utils.getTypeOf(file._data) === "uint8array") {
             var copy = file._data;
-            // when reading an arraybuffer, the CompressedObject mechanism will keep it and subarray() a Uint8Array.
-            // if we request a file in the same format, we might get the same Uint8Array or its ArrayBuffer (the original zip file).
             file._data = new Uint8Array(copy.length);
-            // with an empty Uint8Array, Opera fails with a "Offset larger than array size"
             if (copy.length !== 0) {
                file._data.set(copy, 0);
             }
@@ -95,8 +83,6 @@ JSZip.prototype = (function () {
       var result = getRawData(file), type = JSZip.utils.getTypeOf(result);
       if (type === "string") {
          if (!file.options.binary) {
-            // unicode text !
-            // unicode string => binary string is a painful process, check if we can avoid it.
             if (JSZip.support.uint8array && typeof TextEncoder === "function") {
                return TextEncoder("utf-8").encode(result);
             }
@@ -119,16 +105,12 @@ JSZip.prototype = (function () {
       if (result === null || typeof result === "undefined") {
          return "";
       }
-      // if the data is a base64 string, we decode it before checking the encoding !
       if (this.options.base64) {
          result = JSZip.base64.decode(result);
       }
       if (asUTF8 && this.options.binary) {
-         // JSZip.prototype.utf8decode supports arrays as input
-         // skip to array => string step, utf8decode will do it.
          result = JSZip.prototype.utf8decode(result);
       } else {
-         // no utf8 transformation, do the array => string step.
          result = JSZip.utils.transformTo("string", result);
       }
 
@@ -252,7 +234,6 @@ JSZip.prototype = (function () {
     * @return {Object} the new file.
     */
    var fileAdd = function (name, data, o) {
-      // be sure sub folders exist
       var parent = parentFolder(name), dataType = JSZip.utils.getTypeOf(data);
       if (parent) {
          folderAdd.call(this, parent);
@@ -266,10 +247,7 @@ JSZip.prototype = (function () {
          data = null;
       } else if (dataType === "string") {
          if (o.binary && !o.base64) {
-            // optimizedBinaryString == true means that the file has already been filtered with a 0xFF mask
             if (o.optimizedBinaryString !== true) {
-               // this is a string, not in a base64 format.
-               // Be sure that this is a correct "binary string"
                data = JSZip.utils.string2binary(data);
             }
          }
@@ -280,8 +258,6 @@ JSZip.prototype = (function () {
          if (!dataType && !(data instanceof JSZip.CompressedObject)) {
             throw new Error("The data of '" + name + "' is in an unsupported format !");
          }
-
-         // special case : it's way easier to work with Uint8Array than with ArrayBuffer
          if (dataType === "arraybuffer") {
             data = JSZip.utils.transformTo("uint8array", data);
          }
@@ -312,12 +288,9 @@ JSZip.prototype = (function () {
     * @return {Object} the new folder.
     */
    var folderAdd = function (name) {
-      // Check the name ends with a /
       if (name.slice(-1) != "/") {
          name += "/"; // IE doesn't like substr(-1)
       }
-
-      // Does this folder already exist?
       if (!this.files[name]) {
          fileAdd.call(this, name, null, {dir:true});
       }
@@ -332,8 +305,6 @@ JSZip.prototype = (function () {
     */
    var generateCompressedObjectFrom = function (file, compression) {
       var result = new JSZip.CompressedObject(), content;
-
-      // the data has not been decompressed, we might reuse things !
       if (file._data instanceof JSZip.CompressedObject) {
          result.uncompressedSize = file._data.uncompressedSize;
          result.crc32 = file._data.crc32;
@@ -346,11 +317,9 @@ JSZip.prototype = (function () {
             result.compressedContent = file._data.getCompressedContent();
          } else {
             content = file._data.getContent()
-            // need to decompress / recompress
             result.compressedContent = compression.compress(JSZip.utils.transformTo(compression.compressInputType, content));
          }
       } else {
-         // have uncompressed data
          content = getBinaryData(file);
          if (!content || content.length === 0 || file.options.dir) {
             compression = JSZip.compressions['STORE'];
@@ -383,11 +352,6 @@ JSZip.prototype = (function () {
           dosTime,
           dosDate;
 
-      // date
-      // @see http://www.delorie.com/djgpp/doc/rbinter/it/52/13.html
-      // @see http://www.delorie.com/djgpp/doc/rbinter/it/65/16.html
-      // @see http://www.delorie.com/djgpp/doc/rbinter/it/66/16.html
-
       dosTime = o.date.getHours();
       dosTime = dosTime << 6;
       dosTime = dosTime | o.date.getMinutes();
@@ -402,48 +366,28 @@ JSZip.prototype = (function () {
 
 
       var header = "";
-
-      // version needed to extract
       header += "\x0A\x00";
-      // general purpose bit flag
-      // set bit 11 if utf8
       header += useUTF8 ? "\x00\x08" : "\x00\x00";
-      // compression method
       header += compressedObject.compressionMethod;
-      // last mod file time
       header += decToHex(dosTime, 2);
-      // last mod file date
       header += decToHex(dosDate, 2);
-      // crc-32
       header += decToHex(compressedObject.crc32, 4);
-      // compressed size
       header += decToHex(compressedObject.compressedSize, 4);
-      // uncompressed size
       header += decToHex(compressedObject.uncompressedSize, 4);
-      // file name length
       header += decToHex(utfEncodedFileName.length, 2);
-      // extra field length
       header += "\x00\x00";
 
 
       var fileRecord = JSZip.signature.LOCAL_FILE_HEADER + header + utfEncodedFileName;
 
       var dirRecord = JSZip.signature.CENTRAL_FILE_HEADER +
-      // version made by (00: DOS)
       "\x14\x00" +
-      // file header (common to file and central directory)
       header +
-      // file comment length
       "\x00\x00" +
-      // disk number start
       "\x00\x00" +
-      // internal file attributes TODO
       "\x00\x00" +
-      // external file attributes
       (file.options.dir===true?"\x10\x00\x00\x00":"\x00\x00\x00\x00")+
-      // relative offset of local header
       decToHex(offset, 4) +
-      // file name
       utfEncodedFileName;
 
 
@@ -494,7 +438,6 @@ JSZip.prototype = (function () {
        */
       append : function (input) {
          if (input.length !== 0) {
-            // with an empty Uint8Array, Opera fails with a "Offset larger than array size"
             input = JSZip.utils.transformTo("uint8array", input);
             this.data.set(input, this.index);
             this.index += input.length;
@@ -508,8 +451,6 @@ JSZip.prototype = (function () {
          return this.data;
       }
    };
-
-   // return the actual prototype of JSZip
    return {
       /**
        * Read an existing zip and merge the data in the current JSZip object.
@@ -535,7 +476,6 @@ JSZip.prototype = (function () {
          for (filename in this.files) {
             if ( !this.files.hasOwnProperty(filename) ) { continue; }
             file = this.files[filename];
-            // return a new object, don't let the user mess with our internal objects :)
             fileClone = new ZipObject(file.name, file._data, extend(file.options));
             relativePath = filename.slice(this.root.length, filename.length);
             if (filename.slice(0, this.root.length) === this.root && // the file is in the current root
@@ -589,12 +529,8 @@ JSZip.prototype = (function () {
                return file.options.dir && arg.test(relativePath);
             });
          }
-
-         // else, name is a new folder
          var name = this.root + arg;
          var newFolder = folderAdd.call(this, name);
-
-         // Allow chaining by returning a new object with this folder as the root
          var ret = this.clone();
          ret.root = newFolder.name;
          return ret;
@@ -609,7 +545,6 @@ JSZip.prototype = (function () {
          name = this.root + name;
          var file = this.files[name];
          if (!file) {
-            // Look for any folders
             if (name.slice(-1) != "/") {
                name += "/";
             }
@@ -618,10 +553,8 @@ JSZip.prototype = (function () {
 
          if (file) {
             if (!file.options.dir) {
-               // file
                delete this.files[name];
             } else {
-               // folder
                var kids = this.filter(function (relativePath, file) {
                   return file.name.slice(0, name.length) === name;
                });
@@ -652,9 +585,6 @@ JSZip.prototype = (function () {
          JSZip.utils.checkSupport(options.type);
 
          var zipData = [], localDirLength = 0, centralDirLength = 0, writer, i;
-
-
-         // first, generate all the zip parts.
          for (var name in this.files) {
             if ( !this.files.hasOwnProperty(name) ) { continue; }
             var file = this.files[name];
@@ -674,27 +604,14 @@ JSZip.prototype = (function () {
          }
 
          var dirEnd = "";
-
-         // end of central dir signature
          dirEnd = JSZip.signature.CENTRAL_DIRECTORY_END +
-         // number of this disk
          "\x00\x00" +
-         // number of the disk with the start of the central directory
          "\x00\x00" +
-         // total number of entries in the central directory on this disk
          decToHex(zipData.length, 2) +
-         // total number of entries in the central directory
          decToHex(zipData.length, 2) +
-         // size of the central directory   4 bytes
          decToHex(centralDirLength, 4) +
-         // offset of start of central directory with respect to the starting disk number
          decToHex(localDirLength, 4) +
-         // .ZIP file comment length
          "\x00\x00";
-
-
-         // we have all the parts (and the total length)
-         // time to create a writer !
          switch(options.type.toLowerCase()) {
             case "uint8array" :
             case "arraybuffer" :
@@ -723,15 +640,12 @@ JSZip.prototype = (function () {
 
 
          switch(options.type.toLowerCase()) {
-            // case "zip is an Uint8Array"
             case "uint8array" :
             case "arraybuffer" :
             case "nodebuffer" :
                return JSZip.utils.transformTo(options.type.toLowerCase(), zip);
             case "blob" :
                return JSZip.utils.arrayBuffer2Blob(JSZip.utils.transformTo("arraybuffer", zip));
-
-            // case "zip is a string"
             case "base64" :
                return (options.base64) ? JSZip.base64.encode(zip) : zip;
             default : // case "string" :
@@ -834,8 +748,6 @@ JSZip.prototype = (function () {
 
          return crc ^ (-1);
       },
-
-      // Inspired by http://my.opera.com/GreyWyvern/blog/show.dml/1725165
       clone : function() {
          var newObj = new JSZip();
          for (var i in this) {
@@ -851,9 +763,6 @@ JSZip.prototype = (function () {
        * http://www.webtoolkit.info/javascript-utf8.html
        */
       utf8encode : function (string) {
-         // TextEncoder + Uint8Array to binary string is faster than checking every bytes on long strings.
-         // http://jsperf.com/utf8encode-vs-textencoder
-         // On short strings (file names for example), the TextEncoder API is (currently) slower.
          if (JSZip.support.uint8array && typeof TextEncoder === "function") {
             var u8 = TextEncoder("utf-8").encode(string);
             return JSZip.utils.transformTo("string", u8);
@@ -861,9 +770,6 @@ JSZip.prototype = (function () {
          if (JSZip.support.nodebuffer) {
             return JSZip.utils.transformTo("string", new Buffer(string, "utf-8"));
          }
-
-         // array.join may be slower than string concatenation but generates less objects (less time spent garbage collecting).
-         // See also http://jsperf.com/array-direct-assignment-vs-push/31
          var result = [], resIndex = 0;
 
          for (var n = 0; n < string.length; n++) {
@@ -895,9 +801,6 @@ JSZip.prototype = (function () {
          var isArray = type !== "string";
          var i = 0;
          var c = 0, c1 = 0, c2 = 0, c3 = 0;
-
-         // check if we can use the TextDecoder API
-         // see http://encoding.spec.whatwg.org/#api
          if (JSZip.support.uint8array && typeof TextDecoder === "function") {
             return TextDecoder("utf-8").decode(
                JSZip.utils.transformTo("uint8array", input)
@@ -964,27 +867,16 @@ JSZip.compressions = {
  * List features that require a modern browser, and if the current browser support them.
  */
 JSZip.support = {
-   // contains true if JSZip can read/generate ArrayBuffer, false otherwise.
    arraybuffer : (function(){
       return typeof ArrayBuffer !== "undefined" && typeof Uint8Array !== "undefined";
    })(),
-   // contains true if JSZip can read/generate nodejs Buffer, false otherwise.
    nodebuffer : (function(){
       return typeof Buffer !== "undefined";
    })(),
-   // contains true if JSZip can read/generate Uint8Array, false otherwise.
    uint8array : (function(){
       return typeof Uint8Array !== "undefined";
    })(),
-   // contains true if JSZip can read/generate Blob, false otherwise.
    blob : (function(){
-      // the spec started with BlobBuilder then replaced it with a construtor for Blob.
-      // Result : we have browsers that :
-      // * know the BlobBuilder (but with prefix)
-      // * know the Blob constructor
-      // * know about Blob but not about how to build them
-      // About the "=== 0" test : if given the wrong type, it may be converted to a string.
-      // Instead of an empty content, we will get "[object Uint8Array]" for example.
       if (typeof ArrayBuffer === "undefined") {
          return false;
       }
@@ -1051,21 +943,17 @@ JSZip.support = {
          JSZip.utils.checkSupport("blob");
 
          try {
-            // Blob constructor
             return new Blob([buffer], { type: "application/zip" });
          }
          catch(e) {}
 
          try {
-            // deprecated, browser only, old way
             var builder = new (window.BlobBuilder || window.WebKitBlobBuilder ||
                                window.MozBlobBuilder || window.MSBlobBuilder)();
             builder.append(buffer);
             return builder.getBlob('application/zip');
          }
          catch(e) {}
-
-         // well, fuck ?!
          throw new Error("Bug : can't construct the Blob.");
       },
       /**
@@ -1108,15 +996,6 @@ JSZip.support = {
     * @return {String} the result.
     */
    function arrayLikeToString(array) {
-      // Performances notes :
-      // --------------------
-      // String.fromCharCode.apply(null, array) is the fastest, see
-      // see http://jsperf.com/converting-a-uint8array-to-a-string/2
-      // but the stack is limited (and we can get huge arrays !).
-      //
-      // result += String.fromCharCode(array[i]); generate too many strings !
-      //
-      // This code is inspired by http://jsperf.com/arraybuffer-to-string-apply-performance/2
       var chunk = 65536;
       var result = [], len = array.length, type = JSZip.utils.getTypeOf(array), k = 0;
 
@@ -1147,11 +1026,7 @@ JSZip.support = {
       }
       return arrayTo;
    };
-
-   // a matrix containing functions to transform everything into everything.
    var transform = {};
-
-   // string to ?
    transform["string"] = {
       "string" : identity,
       "array" : function (input) {
@@ -1167,8 +1042,6 @@ JSZip.support = {
          return stringToArrayLike(input, new Buffer(input.length));
       }
    };
-
-   // array to ?
    transform["array"] = {
       "string" : arrayLikeToString,
       "array" : identity,
@@ -1182,8 +1055,6 @@ JSZip.support = {
          return new Buffer(input);
       }
    };
-
-   // arraybuffer to ?
    transform["arraybuffer"] = {
       "string" : function (input) {
          return arrayLikeToString(new Uint8Array(input));
@@ -1199,8 +1070,6 @@ JSZip.support = {
          return new Buffer(new Uint8Array(input));
       }
    };
-
-   // uint8array to ?
    transform["uint8array"] = {
       "string" : arrayLikeToString,
       "array" : function (input) {
@@ -1214,8 +1083,6 @@ JSZip.support = {
          return new Buffer(input);
       }
    };
-
-   // nodebuffer to ?
    transform["nodebuffer"] = {
       "string" : arrayLikeToString,
       "array" : function (input) {
@@ -1240,8 +1107,6 @@ JSZip.support = {
     */
    JSZip.utils.transformTo = function (outputType, input) {
       if (!input) {
-         // undefined, null, etc
-         // an empty string won't harm.
          input = "";
       }
       if (!outputType) {
@@ -1348,11 +1213,9 @@ JSZip.support = {
  *  Hacked so that it doesn't utf8 en/decode everything
  **/
 JSZip.base64 = (function() {
-   // private property
    var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
    return {
-      // public method for encoding
       encode : function(input, utf8) {
          var output = "";
          var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
@@ -1383,8 +1246,6 @@ JSZip.base64 = (function() {
 
          return output;
       },
-
-      // public method for decoding
       decode : function(input, utf8) {
          var output = "";
          var chr1, chr2, chr3;
@@ -1420,6 +1281,4 @@ JSZip.base64 = (function() {
       }
    };
 }());
-
-// enforcing Stuk's coding style
 // vim: set shiftwidth=3 softtabstop=3:

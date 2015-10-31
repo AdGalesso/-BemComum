@@ -6,11 +6,7 @@ function mountFolder (connect, dir) {
 
 module.exports = function(grunt) {
   "use strict";
-
-  // Project configuration.
   grunt.initConfig({
-
-    // Metadata.
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*! \n' +
             ' * <%= pkg.name %> v<%= pkg.version %>\n' +
@@ -105,11 +101,7 @@ module.exports = function(grunt) {
     },
 
     qunit: {
-      //options: {
-      //  inject: 'src/js/tests/unit/phantom.js'
-      //},
       options: {
-        //'phantomPath': 'node_modules/phantomjs/lib/phantom/phantomjs.exe',
         '--local-to-remote-url-access': 'no',
         '--proxy': '127.0.01',
         timeout: 5000,
@@ -120,7 +112,6 @@ module.exports = function(grunt) {
             urls: ['http://127.0.0.1:<%= connect.test.options.port %>/index.html']
         }
       }
-      //files: ['src/js/tests/index.html']
     },
     connect: {
       test: {
@@ -154,9 +145,6 @@ module.exports = function(grunt) {
       }
     }
   });
-
-
-  // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-qunit');

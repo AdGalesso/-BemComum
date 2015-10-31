@@ -91,7 +91,6 @@ else var Blob = (function (view) {
     };
     FBB_proto.append = function(data/*, endings*/) {
       var bb = this.data;
-      // decode data to a binary string
       if (Uint8Array && (data instanceof ArrayBuffer || data instanceof Uint8Array)) {
         var
             str = ""
@@ -108,7 +107,6 @@ else var Blob = (function (view) {
           var fr = new FileReaderSync;
           bb.push(fr.readAsBinaryString(data));
         } else {
-          // async FileReader won't work as BlobBuilder is sync
           throw new FileException("NOT_READABLE_ERR");
         }
       } else if (data instanceof FakeBlob) {
@@ -123,7 +121,6 @@ else var Blob = (function (view) {
         if (typeof data !== "string") {
           data += ""; // convert unsupported types to strings
         }
-        // decode UTF-16 to binary string
         bb.push(unescape(encodeURIComponent(data)));
       }
     };

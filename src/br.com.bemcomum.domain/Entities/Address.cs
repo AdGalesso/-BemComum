@@ -1,13 +1,12 @@
-﻿using br.com.bemcomum.domain.Interfaces;
-using System;
+﻿using System;
 
 namespace br.com.bemcomum.domain.Entities
 {
-    public class Address : IEntity<Guid>
+    public class Address : BaseEntity<Guid>
     {
-        public Guid Id { get; set; }
-
         public string Street { get; set; }
+
+        public string District { get; set; }
 
         public string Number { get; set; }
 
@@ -23,10 +22,18 @@ namespace br.com.bemcomum.domain.Entities
 
         public string Mobile { get; set; }
 
-        public bool IsActive { get; set; }
+        public string Latitude { get; set; }
 
-        public DateTime Save { get; set; }
+        public string Longitude { get; set; }
 
-        public DateTime Update { get; set; }
+        public void UpdateGeolocation()
+        {
+
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}, {1}, {2}, {3}, {4}, {5}", Number, Street, District, City, State, ZipCode);
+        }
     }
 }

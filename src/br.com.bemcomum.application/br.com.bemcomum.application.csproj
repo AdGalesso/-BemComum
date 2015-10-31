@@ -33,12 +33,27 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseApp.cs" />
+    <Compile Include="DonorApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserApp.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\br.com.bemcomum.application.contracts\br.com.bemcomum.application.contracts.csproj">
       <Project>{18af24ca-4377-4ade-bfd8-df949c3b2858}</Project>
       <Name>br.com.bemcomum.application.contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\br.com.bemcomum.domain.service.contracts\br.com.bemcomum.domain.service.contracts.csproj">
+      <Project>{0f26eed7-be2a-4fef-b15a-d32e0b1dd8dc}</Project>
+      <Name>br.com.bemcomum.domain.service.contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\br.com.bemcomum.domain\br.com.bemcomum.domain.csproj">
+      <Project>{fa841657-febe-49fd-91e9-0bc201ba172b}</Project>
+      <Name>br.com.bemcomum.domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\br.com.bemcomum.infra.data.contracts\br.com.bemcomum.infra.data.contracts.csproj">
+      <Project>{b386f611-b700-4794-81cf-bef7f6b1fcee}</Project>
+      <Name>br.com.bemcomum.infra.data.contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

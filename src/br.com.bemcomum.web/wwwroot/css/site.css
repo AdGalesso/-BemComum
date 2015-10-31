@@ -1,17 +1,11 @@
 ﻿@font-face {
     font-family: 'Gill Sans MT'; 
-    src: url('../fonts/Gill Sans MT.ttf');
+    src: url('../../fonts/Gill Sans MT.ttf');
 }
 
 @font-face {
     font-family: 'Helv67'; 
-    src: url('../fonts/helr67w.ttf'); 
-}
-
-* {
-    font-family: 'Gill Sans MT' !important;
-    font-weight:bold;
-    text-transform:uppercase;
+    src: url('../../fonts/helr67w.ttf'); 
 }
 
 body {
@@ -19,6 +13,9 @@ body {
     padding:0;
     overflow-x:hidden;
     color:#fff;
+    font-family: 'Gill Sans MT' !important;
+    font-weight:bold;
+    text-transform:uppercase;
 }
 
 header {
@@ -41,8 +38,11 @@ header {
     }
 }
 
-input {
+input,
+select,
+textarea {
     font-weight:normal;
+    text-transform:uppercase;
 }
 
 a:link,
@@ -55,6 +55,10 @@ a:active
 
 .row.transparent {
     background-image:url('../images/bg_transparent.png');
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Gill Sans MT' !important;
 }
 
 h1 {
@@ -143,15 +147,18 @@ p.message {
                 background-color: #EE5824;
             }
 
+.btn {
+    font-family: 'Gill Sans MT' !important;
+    text-transform:uppercase;
+}
+
 .btn-login,
 .btn-login:active,
 .btn-login:hover,
-.btn-login:visited{
+.btn-login:visited {
     background-color: #D7400C;
     border-color: #B52F01;
     color:#fff;
-    font-family: 'Gill Sans MT' !important;
-    text-transform:uppercase;
 }
 
 .content {
@@ -229,16 +236,44 @@ form {
     form .btn-default:active,
     form .btn-default:hover,
     form .btn-default:visited {
+        clear:both; 
         float:right;
         background-color: #fc6525;
         border-color: #fc6525;
         color:#fff;
-        font-family: 'Gill Sans MT' !important;
-        text-transform:uppercase;
     }
 
     form .btn-default.horizontal{
         margin-top:24px;
+    }
+
+    form .row{
+        margin-bottom:15px;
+    }
+
+    form i   {
+        float: right;
+        position: relative;
+        top: -24px;
+        left: -10px;
+    }
+
+    form .has-success i {
+        color: #468847;
+    }
+
+    form .has-error i {
+        color: #B94A48;
+    }
+
+.help-block {
+    float:right;
+    font-size: 11px;
+}
+
+    .help-block i {
+        float:none;
+        position:unset;
     }
 
 footer {

@@ -2,11 +2,7 @@
 
 module.exports = function(grunt) {
   "use strict";
-
-  // Project configuration.
   grunt.initConfig({
-
-    // Metadata.
     pkg: grunt.file.readJSON('package.json'),
     banner: '/**\n' +
               '* <%= pkg.name %>.js v<%= pkg.version %> by @fat and @mdo\n' +
@@ -14,8 +10,6 @@ module.exports = function(grunt) {
               '* <%= _.pluck(pkg.licenses, "url").join(", ") %>\n' +
               '*/\n',
     jqueryCheck: 'if (!jQuery) { throw new Error(\"Bootstrap requires jQuery\") }\n\n',
-
-    // Task configuration.
     clean: {
       dist: ['dist']
     },
@@ -149,9 +143,6 @@ module.exports = function(grunt) {
       }
     }
   });
-
-
-  // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -164,37 +155,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jekyll');
   grunt.loadNpmTasks('grunt-recess');
   grunt.loadNpmTasks('browserstack-runner');
-
-  // Docs HTML validation task
   grunt.registerTask('validate-html', ['jekyll', 'validation']);
-
-  // Test task.
   var testSubtasks = ['dist-css', 'jshint', 'qunit', 'validate-html'];
-  // Only run BrowserStack tests under Travis
   if (process.env.TRAVIS) {
-    // Only run BrowserStack tests if this is a mainline commit in twbs/bootstrap, or you have your own BrowserStack key
     if ((process.env.TRAVIS_REPO_SLUG === 'twbs/bootstrap' && process.env.TRAVIS_PULL_REQUEST === 'false') || process.env.TWBS_HAVE_OWN_BROWSERSTACK_KEY) {
       testSubtasks.push('browserstack_runner');
     }
   }
   grunt.registerTask('test', testSubtasks);
-
-  // JS distribution task.
   grunt.registerTask('dist-js', ['concat', 'uglify']);
-
-  // CSS distribution task.
   grunt.registerTask('dist-css', ['recess']);
-
-  // Fonts distribution task.
   grunt.registerTask('dist-fonts', ['copy']);
-
-  // Full distribution task.
   grunt.registerTask('dist', ['clean', 'dist-css', 'dist-fonts', 'dist-js']);
-
-  // Default task.
   grunt.registerTask('default', ['test', 'dist', 'build-customizer']);
-
-  // task for building customizer
   grunt.registerTask('build-customizer', 'Add scripts/less files to customizer.', function () {
     var fs = require('fs')
 

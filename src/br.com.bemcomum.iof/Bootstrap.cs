@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using br.com.bemcomum.iof.Map;
+using EZServiceLocation;
 
 namespace br.com.bemcomum.iof
 {
-    class Bootstrap
+    public static class Bootstrap
     {
+        public static void Go()
+        {
+            ServiceLocator.Current.LoadServiceMap<UserMap>();
+        }
     }
 }

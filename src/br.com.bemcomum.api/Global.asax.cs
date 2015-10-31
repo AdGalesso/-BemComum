@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using br.com.bemcomum.iof;
 using System.Web.Http;
-using System.Web.Optimization;
-using System.Web.Routing;
 
 namespace br.com.bemcomum.api
 {
@@ -13,6 +8,7 @@ namespace br.com.bemcomum.api
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            Bootstrap.Go();
         }
     }
 }

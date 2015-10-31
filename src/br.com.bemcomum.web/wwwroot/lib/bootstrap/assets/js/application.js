@@ -1,6 +1,4 @@
-// NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
-// IT'S ALL JUST JUNK FOR OUR DOCS!
-// ++++++++++++++++++++++++++++++++++++++++++
+
 
 !function ($) {
 
@@ -23,8 +21,6 @@
     $('.bs-docs-container [href=#]').click(function (e) {
       e.preventDefault()
     })
-
-    // back to top
     setTimeout(function () {
       var $sideBar = $('.bs-sidebar')
 
@@ -47,8 +43,6 @@
     setTimeout(function () {
       $('.bs-top').affix()
     }, 100)
-
-    // tooltip demo
     $('.tooltip-demo').tooltip({
       selector: "[data-toggle=tooltip]",
       container: "body"
@@ -61,12 +55,8 @@
       selector: "a[data-toggle=tooltip]",
       container: ".bs-docs-navbar .nav"
     })
-
-    // popover demo
     $("[data-toggle=popover]")
       .popover()
-
-    // button state demo
     $('#fat-btn')
       .click(function () {
         var btn = $(this)
@@ -75,8 +65,6 @@
           btn.button('reset')
         }, 3000)
       })
-
-    // carousel demo
     $('.bs-docs-carousel-example').carousel()
 })
 

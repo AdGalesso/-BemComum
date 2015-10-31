@@ -272,8 +272,6 @@ window.onload = function () { // wait for load in a dumb way because B-0
       createGist(getCustomizerData())
     })
   })
-
-  // browser support alerts
   if (!window.URL && navigator.userAgent.toLowerCase().indexOf('safari') != -1) {
     showCallout("Looks like you're using safari, which sadly doesn't have the best support\
                  for HTML5 blobs. Because of this your file will be downloaded with the name <code>\"untitled\"</code>.\

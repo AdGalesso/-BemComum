@@ -1,24 +1,22 @@
-﻿using br.com.bemcomum.domain.Interfaces;
-using System;
+﻿using System;
 
 namespace br.com.bemcomum.domain.Entities
 {
-    public abstract class User : IEntity<Guid>
+    public abstract class User : BaseEntity<Guid>
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public string Email { get; set; }
 
         public string Password { get; set; }
 
-        public string Photo { get; set; }
+        public string Photo { get; }
 
-        public bool IsActive { get; set; }
+        public abstract void Login();
 
-        public DateTime Save { get; set; }
+        public void GetPhoto()
+        {
 
-        public DateTime Update { get; set; }
+        }
     }
 }

@@ -1,18 +1,19 @@
+using br.com.bemcomum.infra.data.context;
+using MySql.Data.Entity;
+using System.Data.Entity.Migrations;
+
 namespace br.com.bemcomum.infra.data.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<br.com.bemcomum.infra.data.context.CurrentContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<BemComumContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+
+            SetSqlGenerator("MySql.Data.MySqlClient", new MySqlMigrationSqlGenerator()); 
         }
 
-        protected override void Seed(br.com.bemcomum.infra.data.context.CurrentContext context)
+        protected override void Seed(BemComumContext context)
         {
             //  This method will be called after migrating to the latest version.
 

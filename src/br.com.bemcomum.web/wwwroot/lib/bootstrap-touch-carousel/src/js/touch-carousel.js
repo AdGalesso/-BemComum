@@ -1,9 +1,5 @@
 
-  // CONST
   var NAMESPACE = 'touch-carousel',
-
-  // TouchCarousel Constructor
-  // -------------------
   TouchCarousel = function (element, options) {
     this.$element       = $(element)
     this.$itemsWrapper  = this.$element.find('.carousel-inner')
@@ -16,8 +12,6 @@
     this.options        = options
 
     this._setPaneDimensions()
-    // disable carousel if there is only one
-    // or no item. (fixes # 6)
     if (this.$items.length <= 1) return this.disable()
 
     this._regTouchGestures()
@@ -29,9 +23,6 @@
     interval: false,
     toughness: 0.25
   }
-
-  // TouchCarousel Prototype methods
-  // -------------------
 
   TouchCarousel.prototype.cycle = function (e) {
     if (!e) this.paused = false
@@ -68,24 +59,15 @@
   TouchCarousel.prototype._setPaneDimensions= function() {
     this.pane_width = this.$element.width();
     this.pane_count = this.$items.length;
-
-    // Set items & wrapper to fixed width
     this.$itemsWrapper.width( this.pane_width * this.pane_count );
     this.$items.width( this.pane_width );
   }
 
   TouchCarousel.prototype._showPane= function( index ) {
-
-      // remove class from prev pane
       this.$items.eq( this.current_pane ).toggleClass('active');
-
-      // Last Item reached
       if( index >= this.pane_count) {
         this.pause();
       }
-
-      // between the bounds
-      // add active state to the current pane
       index = Math.max(0, Math.min(index, this.pane_count-1));
       var $next = this.$items.eq( index ).toggleClass('active');
       this.current_pane = index;
@@ -102,26 +84,18 @@
       this.$itemsWrapper.removeClass('animate');
 
       if(animate) this.$itemsWrapper.addClass('animate');
-
-      // CSS3 Transforms3D Animation
       if($.support.csstransforms3d) {
           this.onGesture = true;
           this.$itemsWrapper.css("transform", "translate3d("+ percent +"%,0,0) scale3d(1,1,1)");
       }
-
-      // CSS3 Transform Animation
       else if($.support.csstransforms) {
           this.onGesture = true;
           this.$itemsWrapper.css("transform", "translate("+ percent +"%,0)");
       }
-
-      // CSS3 Transition
       else {
         var px = (( this.pane_width * this.pane_count) / 100) * percent;
         this.$itemsWrapper.css("left", px +"px");
       }
-
-      // Transition Complete
       if( $.support.transition ) {
         this.$itemsWrapper.one($.support.transition.end, function (e) {
           that.$itemsWrapper.removeClass('animate');
@@ -146,18 +120,13 @@
   TouchCarousel.prototype._handleGestures = function( e ) {
 
     if(this.sliding) return;
-
-    // Stop slideshow onGesture
     this.pause();
 
     switch(e.type) {
       case 'dragright':
       case 'dragleft':
-        // stick to the finger
         var pane_offset = -(100/  this.pane_count) * this.current_pane;
         var drag_offset = ((100/ this.pane_width) * e.gesture.deltaX) / this.pane_count;
-
-        // slow down at the first and last pane
         if( (this.current_pane === 0 && e.gesture.direction == Hammer.DIRECTION_RIGHT) ||
             ( this.current_pane == this.pane_count-1 && e.gesture.direction == Hammer.DIRECTION_LEFT)) {
             drag_offset *= this.options.toughness;
@@ -177,7 +146,6 @@
           break;
 
       case 'release':
-        // more then 50% moved, navigate
         if(Math.abs(e.gesture.deltaX) > this.pane_width/2) {
             if(e.gesture.direction == 'right') {
                 this.prev();
@@ -211,12 +179,7 @@
     return this;
   }
 
-  // CAROUSEL PLUGIN DEFINITION
-  // ==========================
-
   var old = $.fn.carousel
-
-  // Overwrite default fn.carousel
   $.fn.carousel = function (option) {
     return this.each(function () {
       var $this   = $(this)
@@ -233,20 +196,10 @@
 
   $.fn.carousel.Constructor = TouchCarousel
 
-
-  // CAROUSEL NO CONFLICT
-  // ====================
-
   $.fn.carousel.noConflict = function () {
     $.fn.carousel = old
     return this
   }
-
-
-  // CAROUSEL DATA-API
-  // =================
-
-  // unbind default carousel data-API
   $(document).off('click.bs.carousel').on('click.bs.carousel.data-api', '[data-slide], [data-slide-to]', function (e) {
     var $this   = $(this), href
     var $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
