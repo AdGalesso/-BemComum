@@ -8,6 +8,7 @@ namespace br.com.bemcomum.iof
         public static void Go()
         {
             ServiceLocator.Current.LoadServiceMap<UserMap>();
+            ServiceLocator.Current.LoadServiceMap<AddressMap>();
         }
     }
 }

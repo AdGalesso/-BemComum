@@ -65,11 +65,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3>Cadastre-se</h3>
+                    <h3 ng-show="donor.id == ''">Cadastre-se</h3>
+                    <h3 ng-show="donor.id != ''">Olá {{donor.name}}!</h3>
                     <span class="down-arrow"></span>
                 </div>
             </div>
-            <div class="row" ng-show="secondStep == false">
+            <div class="row" ng-show="step === 1">
                 <form name="formDonor" ng-submit="submit(formDonor.$valid)" novalidate>
                     <div class="form-group" 
                          ng-class="{ 
@@ -107,12 +108,12 @@
                     <button type="submit" class="btn btn-default">Enviar</button>
                 </form>
             </div>
-            <div class="row" ng-show="secondStep == true">
-                <form id="form-address">
+            <div class="row" ng-show="step === 2">
+                <form name="formAddress" id="formAddress">
                     <div class="row">
                         <div class="col-lg-4 col-xs-4">
                             <label for="zipCodeDonor">CEP:</label>
-                            <input type="text" class="form-control" id="zipCodeDonor" placeholder="00000-000" maxlength="9" ng-model="donor.address.zipcode">
+                            <input type="text" class="form-control" id="zipCodeDonor" name="zipCodeDonor" placeholder="00000-000" maxlength="9" ng-model="donor.address.zipCode">
                         </div>
                     </div>
                     <div class="row">
@@ -177,9 +178,12 @@
                             <input type="text" class="form-control" id="complement" placeholder="Apt 33A..." ng-model="donor.address.complement">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary">Faço depois ok?</button>
-                    <button type="button" class="btn btn-default">Enviar</button>
+                    <button type="button" class="btn btn-primary" ng-click="skip(3)">Faço depois ok?</button>
+                    <button type="submit" class="btn btn-default">Enviar</button>
                 </form>
+            </div>
+            <div class="row" ng-show="step === 3">
+                <p class="message">Para fazer isso faça isso para fazer aqui faça aquilo. Um texto ou uma parte explicando como funciona o site? Talvez algumas imagens ou sei alguma coisa para colocar aqui quando o usuário esta logado.</p>
             </div>
         </div>
     </section>

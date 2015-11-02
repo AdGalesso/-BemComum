@@ -4,6 +4,7 @@ using br.com.bemcomum.infra.data.contracts;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 namespace br.com.bemcomum.infra.data.repositories
@@ -50,7 +51,16 @@ namespace br.com.bemcomum.infra.data.repositories
 
         public void Update(T obj)
         {
-            db.Entry(obj).State = EntityState.Modified;
+            try
+            {
+                _dbSet.Attach(obj);
+                db.Entry(obj).State = EntityState.Modified;
+            }
+            catch
+            {
+                db.Entry(obj).State = EntityState.Modified;
+            }
+
             db.SaveChanges();
         }
 

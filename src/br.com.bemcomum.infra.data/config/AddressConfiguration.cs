@@ -11,24 +11,24 @@ namespace br.com.bemcomum.infra.data.config
 
             HasKey(k => k.Id);
 
-            Property(p => p.City)
+            Property(p => p.ZipCode)
                 .IsRequired()
+                .HasMaxLength(9);
+
+            Property(p => p.City)
+                .IsOptional()
                 .HasMaxLength(100);
 
             Property(p => p.State)
-                .IsRequired()
+                .IsOptional()
                 .HasMaxLength(50);
 
-            Property(p => p.ZipCode)
-                .IsRequired()
-                .HasMaxLength(8);
-
             Property(p => p.Street)
-                .IsRequired()
+                .IsOptional()
                 .HasMaxLength(100);
 
             Property(p => p.Number)
-               .IsRequired()
+               .IsOptional()
                .HasMaxLength(10);
 
             Property(p => p.Latitude)

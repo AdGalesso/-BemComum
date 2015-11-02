@@ -33,6 +33,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="DonorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

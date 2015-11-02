@@ -1,11 +1,13 @@
 ﻿using br.com.bemcomum.domain.Entities;
 using br.com.bemcomum.infra.data.config;
+using MySql.Data.Entity;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace br.com.bemcomum.infra.data.context
 {
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class BemComumContext : DbContext
     {
         public BemComumContext() : base("PUBCConn") {}
@@ -25,6 +27,8 @@ namespace br.com.bemcomum.infra.data.context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 

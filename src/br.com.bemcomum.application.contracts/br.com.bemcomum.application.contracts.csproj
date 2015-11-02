@@ -33,6 +33,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAddressApp.cs" />
     <Compile Include="IBaseApp.cs" />
     <Compile Include="IDonorApp.cs" />
     <Compile Include="IUserApp.cs" />

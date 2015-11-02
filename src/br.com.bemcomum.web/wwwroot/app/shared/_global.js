@@ -23,7 +23,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         .when('/faq', {
             templateUrl: '../app/faq/_faq.html',
             controller: 'FaqController'
-        });
+        })
 
     $locationProvider.html5Mode(true);
 }]);

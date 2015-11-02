@@ -42,6 +42,7 @@
     <Compile Include="context\BemComumContext.cs" />
     <Compile Include="migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="repositories\AddressRepository.cs" />
     <Compile Include="repositories\BaseRepository.cs" />
     <Compile Include="repositories\DonorRepository.cs" />
     <Compile Include="repositories\UserRepository.cs" />

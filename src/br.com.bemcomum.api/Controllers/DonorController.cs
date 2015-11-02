@@ -29,14 +29,13 @@ namespace br.com.bemcomum.api.Controllers
             return _app.Get(id);
         }
 
-        [HttpPut]
+        [HttpPost]
         public Donor Post(Donor obj)
         {
             _app.Update(obj);
             return obj;
         }
 
-        [AllowAnonymous]
         [HttpPut]
         public Donor Put(Donor obj)
         {

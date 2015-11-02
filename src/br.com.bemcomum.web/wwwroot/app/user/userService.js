@@ -5,11 +5,11 @@ objective: the representation of the user
 dev: adriano.galesso
 */
 
-var userModule = angular.module('userModule', ['addressModule']);
+var userModule = angular.module('userModule', ['baseModule', 'addressModule']);
 
-userModule.factory('User', ['$http', function ($http) {
+userModule.factory('User', ['$http', 'Base', 'ObjectUtils', function ($http, Base, ObjectUtils) {
 
-    var api = '//localhost:63858/api/donor/';
+    var api = 'user/';
 
     var User = function (user) {
 
@@ -17,28 +17,62 @@ userModule.factory('User', ['$http', function ($http) {
             user = {};
         }
 
-        this.id = user.id;
+        Base.apply(this, user);
+
         this.name = user.name;
         this.password = user.password;
         this.email = user.email;
     };
 
+    User.prototype = new Base();
+
     User.prototype.login = function () {
         var self = this;
 
-        return $http.post(api, self).then(function (response) {
+        return $http.post(environment.api + api, self).then(function (response) {
             self = response.data;
             return response;
         });
     };
 
+    User.prototype.logout = function ()
+    {
+        var self = this;
+
+        self = new User();
+
+        localStorage.removeItem("user")
+    }
+
+    User.prototype.setLocalUser = function()
+    {
+        var self = this;
+
+        var local = {
+            id: self.id,
+            name: self.name,
+            email: self.email,
+        };
+
+        localStorage.setItem("user", JSON.stringify(local));
+    }
+
+    User.prototype.getLocalUser = function () {
+        var self = this;
+        var local = localStorage.getItem("user");
+
+        if (local) {
+            ObjectUtils.bind(self, JSON.parse(local));
+        }
+    }
+
     return User;
 
 }]);
 
-userModule.factory('Donor', ['$http', 'User', 'Address', function ($http, User, Address) {
+userModule.factory('Donor', ['$http', 'User', 'Address', 'ObjectUtils', function ($http, User, Address, ObjectUtils) {
 
-    var api = '//localhost:63858/api/donor/';
+    var api = 'donor/';
 
     var Donor = function (donor) {
 
@@ -46,8 +80,7 @@ userModule.factory('Donor', ['$http', 'User', 'Address', function ($http, User, 
             donor = {};
         }
 
-        User.call(this, donor);
-        this.secondStep = false;
+        User.apply(this, donor);
         this.address = new Address(donor.address);
     };
 
@@ -56,9 +89,18 @@ userModule.factory('Donor', ['$http', 'User', 'Address', function ($http, User, 
     Donor.prototype.add = function () {
         var self = this;
 
-        return $http.put(api, self).then(function (response) {
-            self = response.data;
-            return response;
+        return $http.put(environment.api + api, self).then(function (response) {
+            self = ObjectUtils.bind(self, response.data);
+            self.setLocalUser();
+            return self;
+        });
+    };
+
+    Donor.prototype.post = function () {
+        var self = this;
+
+        return $http.post(environment.api + api, self).then(function (response) {
+            return ObjectUtils.bind(self, response.data);
         });
     };
 

@@ -62,3 +62,31 @@ notyModule.factory('Noty', function () {
         }
     };
 });
+
+var stringModule = angular.module('stringModule', []);
+
+notyModule.factory('StringUtils', function () {
+    return {
+        removeSpecialChars: function(text)
+        {
+            return text.replace(/[^\w\s]/gi, '');
+        }
+    };
+});
+
+var objectModule = angular.module('objectModule', []);
+
+objectModule.factory('ObjectUtils', function () {
+    return {
+        bind: function(oldObj, newObj)
+        {
+            for (var key in newObj) {
+                if (oldObj.hasOwnProperty(key)) {
+                    oldObj[key] = newObj[key];
+                }
+            }
+
+            return oldObj;
+        }
+    };
+});
