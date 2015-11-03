@@ -5,7 +5,7 @@ objective: my global admin app
 dev: adriano.galesso
 */
 
-var app = angular.module("bemComumAdmin", ['ngRoute', 'dashboardModule']);
+var app = angular.module("bemComumAdmin", ['ngRoute', 'dashboardModule', 'categoriesModule']);
 
 app.controller('AdminController', function () { });
 
@@ -13,9 +13,13 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 
     $routeProvider
         .when('/', {
-            templateUrl: '../app/admin/_dashboard.html',
+            templateUrl: '../app/admin/dashboard.html',
             controller: 'DashboardController'
         })
+        .when('/categories', {
+            templateUrl: '../app/admin/categories.html',
+            controller: 'CategoriesController'
+        });
 
     $locationProvider.html5Mode(true);
 }]);

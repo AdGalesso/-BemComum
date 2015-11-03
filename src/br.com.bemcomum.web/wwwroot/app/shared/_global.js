@@ -13,15 +13,15 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 
     $routeProvider
         .when('/', {
-            templateUrl: '../app/home/_home.html',
+            templateUrl: '../app/home/home.html',
             controller: 'HomeController'
         })
         .when('/contact', {
-            templateUrl: '../app/contact/_contact.html',
+            templateUrl: '../app/contact/contact.html',
             controller: 'ContactController'
         })
         .when('/faq', {
-            templateUrl: '../app/faq/_faq.html',
+            templateUrl: '../app/faq/faq.html',
             controller: 'FaqController'
         })
 
