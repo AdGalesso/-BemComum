@@ -35,7 +35,9 @@
   <ItemGroup>
     <Compile Include="IAddressRepository.cs" />
     <Compile Include="IBaseRepository.cs" />
+    <Compile Include="ICategoryRepository.cs" />
     <Compile Include="IDonorRepository.cs" />
+    <Compile Include="IInstitutionRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

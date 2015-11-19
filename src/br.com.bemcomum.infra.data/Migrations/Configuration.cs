@@ -1,7 +1,6 @@
 using br.com.bemcomum.domain.Entities;
 using br.com.bemcomum.infra.data.context;
 using MySql.Data.Entity;
-using System;
 using System.Data.Entity.Migrations;
 
 namespace br.com.bemcomum.infra.data.Migrations

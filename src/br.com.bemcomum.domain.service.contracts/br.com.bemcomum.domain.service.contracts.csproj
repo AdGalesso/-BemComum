@@ -35,7 +35,9 @@
   <ItemGroup>
     <Compile Include="IAddressService.cs" />
     <Compile Include="IBaseService.cs" />
+    <Compile Include="ICategoryService.cs" />
     <Compile Include="IDonorService.cs" />
+    <Compile Include="IInstitutionService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

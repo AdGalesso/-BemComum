@@ -1,0 +1,53 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Instituições <i class="fa fa-university pull-right"></i></h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <a href="/admin/institutions/add" class="btn btn-success btn-circle pull-right">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-12 text-center">
+            <p class="empty" ng-show="institutionList.length == 0">Nossas instituições vão aparecer aqui! =)</p>
+            <p class="empty" ng-show="isFetching"><i class="fa fa-cog fa-spin"></i> Buscando dados...</p>
+        </div>
+        <div class="col-lg-12" ng-show="institutionList.length > 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Atuação</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="institution in institutionList track by institution.id">
+                        <td>{{institution.name}}</td>
+                        <td>{{institution.email || '-'}}</td>
+                        <td>{{institution.operation || '-'}}</td>
+                        <td ng-switch="institution.status">
+                            <span ng-switch-when="0">Pendente</span>
+                            <span ng-switch-when="1">Aprovada</span>
+                            <span ng-switch-when="2">Não Aprovada</span>
+                        </td>
+                        <td>
+                            <a href="/admin/institutions/add#{{institution.id}}" class="btn btn-info btn-circle">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a class="btn btn-danger btn-circle" ng-click="remove(institution)">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

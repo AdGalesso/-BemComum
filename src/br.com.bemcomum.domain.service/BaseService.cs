@@ -15,32 +15,32 @@ namespace br.com.bemcomum.domain.service
             _repository = repository;
         }
 
-        public void Add(T obj)
+        public virtual void Add(T obj)
         {
             _repository.Add(obj);
         }
 
-        public T Get(Guid id)
+        public virtual T Get(Guid id)
         {
             return _repository.Get(id);
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public void Remove(T obj)
+        public virtual void Remove(T obj)
         {
             _repository.Remove(obj);
         }
 
-        public void RemoveAll(IEnumerable<T> objs)
+        public virtual void RemoveAll(IEnumerable<T> objs)
         {
             _repository.RemoveAll(objs);
         }
 
-        public void Update(T obj)
+        public virtual void Update(T obj)
         {
             _repository.Update(obj);
         }

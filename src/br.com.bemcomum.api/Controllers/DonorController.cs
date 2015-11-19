@@ -44,7 +44,7 @@ namespace br.com.bemcomum.api.Controllers
         }
 
         [HttpDelete]
-        public void Delete(Guid id)
+        public void Remove(Guid id)
         {
             _app.Remove(new Donor() { Id = id });
         }

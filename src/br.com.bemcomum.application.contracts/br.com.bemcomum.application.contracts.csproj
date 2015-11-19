@@ -35,7 +35,10 @@
   <ItemGroup>
     <Compile Include="IAddressApp.cs" />
     <Compile Include="IBaseApp.cs" />
+    <Compile Include="ICategoryApp.cs" />
+    <Compile Include="IDashboardApp.cs" />
     <Compile Include="IDonorApp.cs" />
+    <Compile Include="IInstitutionApp.cs" />
     <Compile Include="IUserApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

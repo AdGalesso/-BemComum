@@ -8,7 +8,13 @@ namespace br.com.bemcomum.domain.Entities
     {
         public string Name { get; set; }
 
+        public string CNPJ { get; set; }
+
+        public string Email { get; set; }
+
         public string Operation { get; set; }
+
+        public string Description { get; set; }
 
         public Address Address { get; set; }
 

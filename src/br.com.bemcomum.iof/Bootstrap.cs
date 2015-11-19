@@ -9,6 +9,9 @@ namespace br.com.bemcomum.iof
         {
             ServiceLocator.Current.LoadServiceMap<UserMap>();
             ServiceLocator.Current.LoadServiceMap<AddressMap>();
+            ServiceLocator.Current.LoadServiceMap<CategoryMap>();
+            ServiceLocator.Current.LoadServiceMap<InstitutionMap>();
+            ServiceLocator.Current.LoadServiceMap<DashboardMap>();
         }
     }
 }

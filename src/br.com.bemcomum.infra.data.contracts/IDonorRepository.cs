@@ -9,5 +9,8 @@ namespace br.com.bemcomum.infra.data.contracts
 {
     public interface IDonorRepository : IBaseRepository<Donor>
     {
+        int Count();
+
+        IEnumerable<Donor> GetAllWithAddress();
     }
 }

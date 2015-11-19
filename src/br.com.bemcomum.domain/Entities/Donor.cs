@@ -6,7 +6,7 @@ namespace br.com.bemcomum.domain.Entities
     {
         public string Document { get; set; }
 
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         public override void Login()
         {

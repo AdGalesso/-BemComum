@@ -36,6 +36,7 @@
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\ConfirmationRecord.cs" />
     <Compile Include="Entities\ContactRecord.cs" />
+    <Compile Include="Entities\Dashboard.cs" />
     <Compile Include="Entities\Donor.cs" />
     <Compile Include="Entities\Enum\ContactStatus.cs" />
     <Compile Include="Entities\Enum\InstitutionStatus.cs" />

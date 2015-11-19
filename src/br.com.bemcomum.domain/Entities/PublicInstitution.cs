@@ -8,5 +8,6 @@ namespace br.com.bemcomum.domain.Entities
 {
     public class PublicInstitution : Institution
     {
+
     }
 }

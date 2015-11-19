@@ -39,6 +39,9 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Map\AddressMap.cs" />
+    <Compile Include="Map\CategoryMap.cs" />
+    <Compile Include="Map\DashboardMap.cs" />
+    <Compile Include="Map\InstitutionMap.cs" />
     <Compile Include="Map\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
